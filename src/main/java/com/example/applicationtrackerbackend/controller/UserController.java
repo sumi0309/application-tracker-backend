@@ -8,7 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/users")
+@RequestMapping("/user")
 public class UserController {
 
     @Autowired
@@ -17,14 +17,14 @@ public class UserController {
     @Autowired
     private UserRepository userRepository;
 
-    @PostMapping("/create")
+    @PostMapping("/createuser")
     public User createUser(@RequestBody User newUser) {
         return userRepository.save(newUser);
     }
 
-    @GetMapping("/search")
-    public ResponseEntity<User> retrieveUser(@RequestParam String username, @RequestParam String password) {
-        User foundUser = userService.authenticateUser(username, password);
+    @PostMapping("/getuser")
+    public ResponseEntity<User> retrieveUser(@RequestBody User newuser) {
+        User foundUser = userService.authenticateUser(newuser.getUsername(), newuser.getPassword());
 
         if (foundUser != null) {
             return ResponseEntity.ok(foundUser);
