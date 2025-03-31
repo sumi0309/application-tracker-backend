@@ -3,6 +3,7 @@ package com.example.applicationtrackerbackend.controller;
 import com.example.applicationtrackerbackend.model.User;
 import com.example.applicationtrackerbackend.repository.UserRepository;
 import com.example.applicationtrackerbackend.services.UserService;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,18 +19,32 @@ public class UserController {
     private UserRepository userRepository;
 
     @PostMapping("/createuser")
-    public User createUser(@RequestBody User newUser) {
-        return userRepository.save(newUser);
+    public ResponseEntity<String> createUser(@RequestBody User newUser) {
+        try{
+
+            userRepository.save(newUser);
+            return ResponseEntity.ok("User Created!");
+        }catch(Exception ex){
+            return ResponseEntity.status(401).body("Something went wrong, please try again.");
+        }
     }
 
-    @PostMapping("/getuser")
-    public ResponseEntity<User> retrieveUser(@RequestBody User newuser) {
+    @PostMapping("/login")
+    public ResponseEntity<String> retrieveUser(@RequestBody User newuser, HttpSession session) {
         User foundUser = userService.authenticateUser(newuser.getUsername(), newuser.getPassword());
 
         if (foundUser != null) {
-            return ResponseEntity.ok(foundUser);
+            session.setAttribute("userId", foundUser.getUserID());
+            return ResponseEntity.ok("Login Successful!");
         } else {
-            return ResponseEntity.notFound().build();
+            return ResponseEntity.status(401).body("Invalid Credentials");
         }
     }
+
+    @PostMapping("/logout")
+    public ResponseEntity<String> logout(HttpSession session){
+        session.invalidate();
+        return ResponseEntity.ok("Logged out Successfully.");
+    }
+
 }

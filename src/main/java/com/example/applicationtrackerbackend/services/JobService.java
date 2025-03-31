@@ -6,7 +6,6 @@ import com.example.applicationtrackerbackend.repository.JobRepository;
 import com.example.applicationtrackerbackend.model.Job;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class JobService {
@@ -18,11 +17,7 @@ public class JobService {
          return jobRepository.save(job);
      }
 
-//     public List<Job> getJobDetails(Integer userId){
-//         List<Job> foundJobs = jobRepository.findAll(userId);
-//         if(!foundJobs.isEmpty()){
-//             return foundJobs;
-//         }
-//         return null;
-//     }
+     public List<Job> getJobDetails(Long userId){
+         return jobRepository.findByUserId(userId);
+     }
 }

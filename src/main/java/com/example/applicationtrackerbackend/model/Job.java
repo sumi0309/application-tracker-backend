@@ -7,7 +7,7 @@ import java.util.Date;
 @Entity
 public class Job {
 
-    private Integer jobId;
+    private Long jobId;
     private String title;
     private String company;
     private String location;
@@ -17,11 +17,11 @@ public class Job {
     private String jobLink;
 
     @Id
-    private Integer userId;
+    private Long userId;
 
     public Job() {}
 
-    public Job(Integer jobId, String title, String company, String location, Long pay, Date datePosted, Date dateApplied, String jobLink, Integer userId) {
+    public Job(Long jobId, String title, String company, String location, Long pay, Date datePosted, Date dateApplied, String jobLink, Long userId) {
         this.jobId = jobId;
         this.title = title;
         this.company = company;
@@ -33,7 +33,7 @@ public class Job {
         this.userId = userId;
     }
 
-    public Integer getJobId() {
+    public Long getJobId() {
         return jobId;
     }
 
@@ -61,7 +61,7 @@ public class Job {
         return dateApplied;
     }
 
-    public void setJobId(Integer jobId) {
+    public void setJobId(Long jobId) {
         this.jobId = jobId;
     }
 
@@ -93,7 +93,7 @@ public class Job {
         this.jobLink = jobLink;
     }
 
-    public void setUserId(Integer userId) {
+    public void setUserId(Long userId) {
         this.userId = userId;
     }
 
@@ -101,7 +101,7 @@ public class Job {
         return jobLink;
     }
 
-    public Integer getUserId() {
+    public Long getUserId() {
         return userId;
     }
 }
