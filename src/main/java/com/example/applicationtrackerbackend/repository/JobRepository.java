@@ -8,5 +8,5 @@ import java.util.Optional;
 
 @Repository
 public interface JobRepository extends JpaRepository <Job, Integer> {
-    Optional<Job> findAll(Integer jobId);
+//    Optional<Job> findAll(Integer jobId);
 }

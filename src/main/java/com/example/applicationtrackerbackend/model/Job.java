@@ -7,7 +7,6 @@ import java.util.Date;
 @Entity
 public class Job {
 
-    @Id
     private Integer jobId;
     private String title;
     private String company;
@@ -16,6 +15,8 @@ public class Job {
     private Date datePosted;
     private Date dateApplied;
     private String jobLink;
+
+    @Id
     private Integer userId;
 
     public Job() {}
