@@ -21,7 +21,11 @@ public class UserController {
     @PostMapping("/createuser")
     public ResponseEntity<String> createUser(@RequestBody User newUser) {
         try{
-
+            if(userRepository.findByUsername(newUser.getUsername()).isPresent()){
+                return ResponseEntity.status(409).body("Username Already Taken!");
+            }
+            String hashedPassword = userService.createHash(newUser.getPassword());
+            newUser.setPassword(hashedPassword);
             userRepository.save(newUser);
             return ResponseEntity.ok("User Created!");
         }catch(Exception ex){
